@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_to user
     else
       # Create an error message.
-      flash[:danger] = 'Invalid email/password combination' # Not quite right!
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new', status: :unprocessable_entity
       # redirect_to login_url
     end
