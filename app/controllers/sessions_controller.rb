@@ -27,5 +27,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    # Call the log_out method which is defined in sessions_helper.rb
+    log_out
+    # When using Turbo, this ':see_other' status code (corresponding to the
+    # HTTP status code 303 See Other) is necessary to ensure the correct
+    # behavior when redirecting after a DELETE request
+    redirect_to root_url, status: :see_other
   end
 end
