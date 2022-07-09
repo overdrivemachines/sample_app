@@ -66,6 +66,11 @@ class LogoutTest < Logout
     assert_redirected_to root_url
   end
 
+  test "2nd window logout" do
+    # Simulate a user clicking logout in a second window.
+    delete logout_path
+  end
+
   test "redirect after logout" do
     follow_redirect!
     assert_select "a[href=?]", login_path

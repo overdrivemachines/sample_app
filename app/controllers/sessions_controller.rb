@@ -14,10 +14,15 @@ class SessionsController < ApplicationController
       # Reset Session to prevent Session Fixation
       reset_session
 
-      # remember method is defined in sessions_helper.rb. It calls
-      # user.remember and saves permanent cookies for:
-      # user_id (encrypted) and remember_token
-      remember user
+      # check if remember me checkbox is set in the login form
+      if params[:session][:remember_me] == '1'
+        # remember method is defined in sessions_helper.rb. It calls
+        # user.remember and saves permanent cookies for:
+        # user_id (encrypted) and remember_token
+        remember(user)
+      else
+        forget(user)
+      end
 
       # temporary cookie containing user's id
       # log_in() is defined in sessions_helper.rb
@@ -37,7 +42,7 @@ class SessionsController < ApplicationController
 
   def destroy
     # Call the log_out method which is defined in sessions_helper.rb
-    log_out
+    log_out if logged_in?
     # When using Turbo, this ':see_other' status code (corresponding to the
     # HTTP status code 303 See Other) is necessary to ensure the correct
     # behavior when redirecting after a DELETE request
