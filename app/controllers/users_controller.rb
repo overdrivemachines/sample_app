@@ -10,6 +10,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      reset_session
+      # log_in() is defined in sessions_helper.rb
+      log_in @user
       # redirect the browser to show the user’s profile
       flash[:success] = "Welcome to Sample App!"
       redirect_to @user
