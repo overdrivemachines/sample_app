@@ -37,4 +37,10 @@ class User < ApplicationRecord
     # update_attribute bypasses validations. We don't have user's password
     update_attribute(:remember_digest, User.digest(remember_token))
   end
+
+
+  # Returns true if the given token matches the digest.
+  def authenticated?(remember_token)
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
 end
