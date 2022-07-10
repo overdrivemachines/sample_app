@@ -23,6 +23,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   private
 
   # returns a version of the params hash with only the permitted attributes
