@@ -24,7 +24,7 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-  # Returns a random token.
+  # Returns a random token. 22 chars long.
   # Used in generating "remember me" token
   def User.new_token
     SecureRandom.urlsafe_base64
@@ -36,6 +36,13 @@ class User < ApplicationRecord
     # Update remember_digest in the database.
     # update_attribute bypasses validations. We don't have user's password
     update_attribute(:remember_digest, User.digest(remember_token))
+    remember_digest
+  end
+
+  # Returns a session token to prevent session hijacking.
+  # We reuse the remember digest for convenience.
+  def session_token
+    remember_digest || remember
   end
 
 
