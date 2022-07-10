@@ -5,11 +5,11 @@ class SessionsController < ApplicationController
   # Called when login form is submitted
   def create
     # Find the user based on their email provided in the login form
-    user = User.find_by(email: params[:session][:email].downcase)
+    @user = User.find_by(email: params[:session][:email].downcase)
 
     # if user exists and the password is correct
     # if user&.authenticate(params[:session][:password])
-    if user && user.authenticate(params[:session][:password])
+    if @user && @user.authenticate(params[:session][:password])
       # Log the user in and redirect to the user's show page.
       # Reset Session to prevent Session Fixation
       reset_session
@@ -19,17 +19,17 @@ class SessionsController < ApplicationController
         # remember method is defined in sessions_helper.rb. It calls
         # user.remember and saves permanent cookies for:
         # user_id (encrypted) and remember_token
-        remember(user)
+        remember(@user)
       else
-        forget(user)
+        forget(@user)
       end
 
       # temporary cookie containing user's id
       # log_in() is defined in sessions_helper.rb
-      log_in user
+      log_in @user
 
       # redirect to user's show page (eg: /users/1)
-      redirect_to user
+      redirect_to @user
     else
       # Create an error message.
       flash.now[:danger] = 'Invalid email/password combination'
