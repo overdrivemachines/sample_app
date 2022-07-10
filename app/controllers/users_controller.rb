@@ -27,10 +27,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render "edit", status: :unprocessable_entity
+    end
+  end
+
   private
 
   # returns a version of the params hash with only the permitted attributes
   # (while raising an error if the :user attribute is missing).
+  # Uses strong parameters to prevent mass assignment vulnerability
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
