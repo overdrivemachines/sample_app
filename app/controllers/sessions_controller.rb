@@ -10,7 +10,10 @@ class SessionsController < ApplicationController
     # if user exists and the password is correct
     # if user&.authenticate(params[:session][:password])
     if @user && @user.authenticate(params[:session][:password])
-      # Log the user in and redirect to the user's show page.
+      # Log the user in and redirect
+
+      forwarding_url = session[:forwarding_url]
+
       # Reset Session to prevent Session Fixation
       reset_session
 
@@ -28,8 +31,10 @@ class SessionsController < ApplicationController
       # log_in() is defined in sessions_helper.rb
       log_in @user
 
-      # redirect to user's show page (eg: /users/1)
-      redirect_to @user
+      # redirect the user back to where they were or
+      # to the user's show page (eg: /users/1)
+      redirect_to forwarding_url || @user
+
     else
       # Create an error message.
       flash.now[:danger] = 'Invalid email/password combination'
