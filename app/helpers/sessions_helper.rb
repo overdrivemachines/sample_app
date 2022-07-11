@@ -59,4 +59,12 @@ module SessionsHelper
     reset_session
     @current_user = nil
   end
+
+  # Stores the URL trying to be accessed to sessions.
+  # GET requests only
+  def store_location
+    if request.get?
+      session[:forwarding_url] = request.original_url
+    end
+  end
 end
