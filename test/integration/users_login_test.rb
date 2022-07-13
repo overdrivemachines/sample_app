@@ -1,5 +1,9 @@
 require "test_helper"
 
+# A good rule of thumb is to encapsulate the setup methods
+# in classes that don’t end in Test and then inherit from
+# them for the actual tests.
+
 class UsersLogin < ActionDispatch::IntegrationTest
 
   def setup
@@ -44,7 +48,6 @@ class RememberingTest < UsersLogin
   end
 end
 
-
 class ValidLogin < UsersLogin
   def setup
     super
@@ -87,6 +90,7 @@ class LogoutTest < Logout
   test "2nd window logout" do
     # Simulate a user clicking logout in a second window.
     delete logout_path
+    assert_redirected_to root_url
   end
 
   test "redirect after logout" do
