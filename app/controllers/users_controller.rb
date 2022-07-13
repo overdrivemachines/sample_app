@@ -18,12 +18,16 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      reset_session
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
+
+      # reset_session
       # log_in() is defined in sessions_helper.rb
-      log_in @user
+      # log_in @user
       # redirect the browser to show the user’s profile
-      flash[:success] = "Welcome to Sample App!"
-      redirect_to @user
+      # flash[:success] = "Welcome to Sample App!"
+      # redirect_to @user
     else
       # Status necessary.
       # It renders regular HTML when using Turbo according to Section 7.3.1
