@@ -9,8 +9,7 @@ class AccountActivationsController < ApplicationController
     # given activation token, then activate and log in the user
     if user && !user.activated? && user.authenticated?(:activation, activation_token)
       # Activate User
-      user.update_attribute(:activated, true)
-      user.update_attribute(:activated_at, Time.zone.now)
+      user.activate
 
       # Login User
       # reset_session
