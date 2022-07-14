@@ -41,3 +41,6 @@ $ rails server
 
 For more information, see the
 [*Ruby on Rails Tutorial* book](https://www.railstutorial.org/book).
+
+API Key
+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
