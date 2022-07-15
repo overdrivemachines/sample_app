@@ -1,6 +1,7 @@
 class AccountActivationsController < ApplicationController
   # Edit action gets called when user clicks on activation link in email
   # e.g. link: http://localhost:3000/account_activations/ChCkiCMDIodAi6uG8-aYEw/edit?email=c%40c.com
+  # Has no template
   def edit
     user = User.find_by(email: params[:email])
     activation_token = params[:id]
