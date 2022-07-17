@@ -57,21 +57,20 @@ class PasswordResetsController < ApplicationController
 
   # Confirms a valid user.
   def valid_user
-    if @user == nil
-      flash[:danger] = "User is not found"
-    else
-      if !@user.activated?
-        flash[:danger] = "User is not activated"
-      end
-      if !@user.authenticated?(:reset, params[:id])
-        flash[:danger] = "Remember token is not valid. Reset Digest: #{@user.reset_digest}"
-      end
-    end
     unless (@user &&
             @user.authenticated?(:reset, params[:id]) &&
             @user.activated?)
-
-
+      # Show appropriate error messages. Userful for debugging.
+      if @user == nil
+        flash[:danger] = "User not found"
+      else
+        if !@user.activated?
+          flash[:danger] = "User is not activated"
+        end
+        if !@user.authenticated?(:reset, params[:id])
+          flash[:danger] = "Remember token is not valid."
+        end
+      end
       redirect_to root_url
     end
   end
