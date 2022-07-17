@@ -31,6 +31,7 @@ class PasswordResetsController < ApplicationController
       render 'edit', status: :unprocessable_entity
     elsif @user.update(user_params)
       # If user password update is successful, log in the user
+      @user.update_attribute(:reset_digest, nil)
       # @user.reset_digest = nil
       # @user.reset_sent_at = nil
       @user.forget
