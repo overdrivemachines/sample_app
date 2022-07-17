@@ -60,6 +60,7 @@ class PasswordResetsController < ApplicationController
     unless (@user &&
             @user.authenticated?(:reset, params[:id]) &&
             @user.activated?)
+      flash[:danger] = "User is not activated or the reset token is invalid"
       redirect_to root_url
     end
   end
