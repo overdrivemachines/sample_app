@@ -27,3 +27,10 @@ User.create!(name:  "Example User",
                activated: true,
                activated_at: Time.zone.now)
 end
+
+# Generate microposts for a subset of users.
+User.order(:created_at).take(6).each do |user|
+  50.times do
+    post = user.microposts.create!(content: Faker::Quote.jack_handey[0..139])
+  end
+end
