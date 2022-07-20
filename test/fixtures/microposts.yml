@@ -21,7 +21,9 @@ most_recent:
 
 <% 30.times do |n| %>
 micropost_<%= n %>:
-  content: <%= Faker::Faker::Quote.jack_handey[0..139] %>
+  # remove all puntuation from content because micropost.content
+  # and response.body will not match otherwise in tests
+  content: <%= Faker::Quote.jack_handey[0..139].gsub(/[^a-z0-9\s]/i, '') %>
   created_at: <%= 42.days.ago %>
   user: michael
 <% end %>
