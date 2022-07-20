@@ -68,16 +68,6 @@ class UsersController < ApplicationController
 
   # Before filters
 
-  # Confirms a User is logged in.
-  # If user is not logged in, redirect them to the login page with a flash msg
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url, status: :see_other
-    end
-  end
-
   # Confirms the correct user.
   # Redirect if the logged in user is editing the details of another user
   def correct_user
