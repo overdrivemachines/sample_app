@@ -1,5 +1,6 @@
 class Micropost < ApplicationRecord
   belongs_to :user
+  has_one_attached :image # one image per micropost
   # descending order from newest to oldest.
   default_scope -> { order(created_at: :desc) }
 
