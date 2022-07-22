@@ -1,6 +1,11 @@
 class Micropost < ApplicationRecord
   belongs_to :user
-  has_one_attached :image # one image per micropost
+
+  # one image per micropost
+  has_one_attached :image do |attachable|
+    # attachable.class is ActiveStorage::Reflection::HasOneAttachedReflection
+    attachable.variant :display, resize_to_limit: [500, 500]
+  end
   # descending order from newest to oldest.
   default_scope -> { order(created_at: :desc) }
 
