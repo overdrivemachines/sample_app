@@ -86,4 +86,32 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  # Test following? to make sure the user isn’t following the other user,
+  # use follow to follow another user, use following? to verify that the
+  # operation succeeded, and finally unfollow and verify that it worked.
+  test "should follow and unfollow a user" do
+    michael = users(:michael)
+    archer  = users(:archer)
+    # verify michael is not following archer
+    assert_not michael.following?(archer)
+    # michael follows archer
+    michael.follow(archer)
+    # verify micheal is following archer
+    assert michael.following?(archer)
+    # verify michael is one of archer's followers
+    assert archer.followers.include?(michael)
+    # make archer follow michael
+    archer.follow(michael)
+    # verify archer is following michael
+    assert archer.following?(michael)
+    # michael unfollows archer
+    michael.unfollow(archer)
+    # verify michael is not following archer
+    assert_not michael.following?(archer)
+    # Users can't follow themselves.
+    michael.follow(michael)
+    assert_not michael.following?(michael)
+  end
+
 end
