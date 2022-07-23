@@ -34,3 +34,11 @@ User.order(:created_at).take(6).each do |user|
     post = user.microposts.create!(content: Faker::Quote.jack_handey[0..139])
   end
 end
+
+
+user = User.first
+Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: User.first.id)
+Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: User.first.id)
+Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: User.first.id)
+Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: User.first.id)
+Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: User.first.id)
