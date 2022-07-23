@@ -5,8 +5,14 @@ class User < ApplicationRecord
   # ============
   # Prevent userless microposts from being stranded in the database
   has_many :microposts, dependent: :destroy
-  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-
+  has_many :active_relationships,  class_name:  "Relationship",
+                                   foreign_key: "follower_id",
+                                   dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+  has_many :following, through: :active_relationships,  source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   # Callbacks
   # =========
@@ -100,6 +106,23 @@ class User < ApplicationRecord
   # See "Following users" for the full implementation.
   def feed
     Micropost.where("user_id = ?", id)
+  end
+
+
+  # check if current user is following the other user
+  def following?(other_user)
+    self.following.include?(other_user)
+  end
+
+  # make current user follow other user
+  def follow(other_user)
+    # self.active_relationships.create(followed_id: user.id)
+    self.following << other_user unless self == other_user
+  end
+
+  # make user unfollow other user
+  def unfollow(other_user)
+    self.following.delete(other_user)
   end
 
 
