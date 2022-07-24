@@ -101,8 +101,9 @@ class UserTest < ActiveSupport::TestCase
     assert michael.following?(archer)
     # verify michael is one of archer's followers
     assert archer.followers.include?(michael)
-    # make archer follow michael
-    archer.follow(michael)
+    # make archer follow michael.
+    # Archer is already following Michael as defined in relationships.yml
+    # archer.follow(michael)
     # verify archer is following michael
     assert archer.following?(michael)
     # michael unfollows archer
