@@ -36,12 +36,12 @@ User.order(:created_at).take(6).each do |user|
 end
 
 # Second user is followed by 5 random followers
-user = User.second
-Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
-Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
-Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
-Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
-Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
+# user = User.second
+# Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
+# Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
+# Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
+# Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
+# Relationship.create(follower_id: User.all[rand(0..(User.count - 1))].id, followed_id: user.id)
 
 # The first user follows users 3 through 51, and then
 # users 4 through 41 follow that user back.
