@@ -1,0 +1,7 @@
+<%# Change the form to unfollow form and change the followers count %>
+<%= turbo_stream.update "follow_form" do %>
+  <%= render partial: "users/unfollow" %>
+<% end %>
+<%= turbo_stream.update "followers" do %>
+  <%= @user.followers.count %>
+<% end %>
