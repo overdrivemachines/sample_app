@@ -29,10 +29,15 @@ User.create!(name:  "Example User",
 end
 
 # Generate microposts for a subset of users.
-User.order(:created_at).take(6).each do |user|
-  50.times do
-    post = user.microposts.create!(content: Faker::Quote.jack_handey[0..139])
-  end
+# User.order(:created_at).take(6).each do |user|
+#   50.times do
+#     post = user.microposts.create!(content: Faker::Quote.jack_handey[0..139])
+#   end
+# end
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Quote.jack_handey[0..139]
+  users.each { |user| user.microposts.create!(content: content) }
 end
 
 # Second user is followed by 5 random followers
